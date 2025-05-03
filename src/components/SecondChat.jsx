@@ -1,10 +1,10 @@
 import { useState } from 'react';
-import secondUserIcon from './../assets/images/secondUser.svg';
+import seconduser from './../assets/images/seconduser.svg';
 import photoIcon from './../assets/images/photo.svg';
 import sendIcon from './../assets/images/send.svg';
 import ImageModal from './ImageModal';
 
-const SecondChat = ({ text, setText, chats, setChats, whoAmI, currentSender, toggleSender }) => {
+const SecondChat = ({ text, setText, chats, setChats, whoAmI }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [imageUrl, setImageUrl] = useState('');
   const [imageComment, setImageComment] = useState('');
@@ -16,12 +16,11 @@ const SecondChat = ({ text, setText, chats, setChats, whoAmI, currentSender, tog
     const newMessage = {
       type: "text",
       text,
-      from: whoAmI, // Всегда отправляем от Евгения
+      from: whoAmI,
       time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
     };
     setChats(prev => [...prev, newMessage]);
     setText('');
-    toggleSender(); // Оставляем для плейсхолдера, но можно убрать, если не нужно
   };
 
   const handleOpenModal = (e) => {
@@ -38,25 +37,25 @@ const SecondChat = ({ text, setText, chats, setChats, whoAmI, currentSender, tog
       type: "image",
       imageUrl,
       text: imageComment,
-      from: whoAmI, // Всегда отправляем от Евгения
+      from: whoAmI,
       time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
     };
     setChats(prev => [...prev, newMessage]);
     setImageUrl('');
     setImageComment('');
     setIsModalOpen(false);
-    toggleSender(); // Оставляем для плейсхолдера, но можно убрать, если не нужно
   };
 
   return (
     <div className="chat-container">
       <div className="header">
-        <img src={secondUserIcon} alt="" />
+        <img src={seconduser} alt="" />
         <div className="user-info">
           <h1>Евгений</h1>
           <span>Онлайн</span>
         </div>
       </div>
+
       <div className="main">
         {chats.map((msg, idx) => (
           <div key={idx} className={`message-block ${msg.from === whoAmI ? 'my' : 'other'}`}>
@@ -64,7 +63,7 @@ const SecondChat = ({ text, setText, chats, setChats, whoAmI, currentSender, tog
               <div className="message">{msg.text}</div>
             ) : (
               <div className="message">
-                <img src={msg.imageUrl} alt="Shared image" />
+                <img src={msg.imageUrl} alt="Shared" />
                 {msg.text && <div className="image-comment">{msg.text}</div>}
               </div>
             )}
@@ -72,10 +71,11 @@ const SecondChat = ({ text, setText, chats, setChats, whoAmI, currentSender, tog
           </div>
         ))}
       </div>
+
       <form className="chat-footer" onSubmit={text.trim() ? handleSendText : handleOpenModal}>
         <input
           type="text"
-          placeholder={`Написать сообщение...`}
+          placeholder="Написать сообщение..."
           autoFocus
           value={text}
           onChange={(e) => setText(e.target.value)}
