@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import seconduser from './../assets/images/seconduser.svg';
+import secondUser from './../assets/images/secondUser.svg';
 import photoIcon from './../assets/images/photo.svg';
 import sendIcon from './../assets/images/send.svg';
 import ImageModal from './ImageModal';
@@ -49,7 +49,7 @@ const SecondChat = ({ text, setText, chats, setChats, whoAmI }) => {
   return (
     <div className="chat-container">
       <div className="header">
-        <img src={seconduser} alt="" />
+        <img src={secondUser} alt="" />
         <div className="user-info">
           <h1>Евгений</h1>
           <span>Онлайн</span>
